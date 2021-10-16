@@ -88,5 +88,6 @@ class MySensorSource() extends SourceFunction[SensorReading] {
       Thread.sleep(500)
     }
   }
+
   override def cancel(): Unit = false
 }

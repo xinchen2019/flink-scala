@@ -27,15 +27,12 @@ object StateTest {
 
 class MyRichMapper1 extends RichMapFunction[SensorReading, String] {
 
-  var valueState: ValueState[Double] = _
-
   lazy val listState = getRuntimeContext.getListState(new ListStateDescriptor[Int]("liststate", classOf[Int]))
-
   lazy val mapState = getRuntimeContext.getMapState(
     new MapStateDescriptor[String, Double]("mapstate", classOf[String], classOf[Double]))
-
   lazy val reduceState = getRuntimeContext.getReducingState(
     new ReducingStateDescriptor[SensorReading]("reducstate", new MyReducer, classOf[SensorReading]))
+  var valueState: ValueState[Double] = _
 
   override def open(parameters: Configuration): Unit = {
     valueState = getRuntimeContext.getState(new ValueStateDescriptor[Double]("valuestate", classOf[Double]))
@@ -55,7 +52,7 @@ class MyRichMapper1 extends RichMapFunction[SensorReading, String] {
 
     mapState.contains("sensor_1")
     mapState.get("sensor_1")
-    mapState.put("sensor_1",1.3)
+    mapState.put("sensor_1", 1.3)
 
     reduceState.get()
     reduceState.add(value)

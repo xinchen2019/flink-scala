@@ -57,10 +57,7 @@ object EsOutputTest {
     resultTable2.printSchema()
     resultTable2.toRetractStream[(String, Long)].print()
     val id2Count_output = tenv.executeSql(out_sql)
-    //a.insertInto("esOutputTable")
     resultTable2.executeInsert("esOutputTable")
-    //resultTable.toRetractStream[(String,Long, Double)].print()
-
     env.execute("BasicTableDemo")
   }
 }
